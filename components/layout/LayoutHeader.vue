@@ -186,10 +186,10 @@ watch(isMenuOpen, (value) => {
 
 <template>
   <header
-    class="fixed left-0 top-0 z-40 w-full transition-colors duration-200 ease-in-out"
+    class="fixed left-0 top-0 z-40 w-full transition-colors duration-200 ease-in-out bg-gradient-to-b from-black/40 to-white/0"
   >
     <!-- Navigation bar -->
-    <nav class="mx-auto px-2 sm:px-4 lg:px-16">
+    <nav class="mx-auto px-2 sm:px-4 lg:px-20 lg:py-4">
       <!-- Actual content -->
       <template v-if="!isLoading">
         <!-- Navigation bar content -->
@@ -217,10 +217,10 @@ watch(isMenuOpen, (value) => {
             <!-- Show language and theme switch on desktop -->
             <div class="hidden md:flex items-center space-x-2">
               <!-- Desktop navigation menu -->
-              <div class="hidden md:flex md:space-x-1 lg:space-x-3 md:ml-4 lg:ml-8">
+              <div class="hidden md:flex md:space-x-4 lg:space-x-10 md:ml-4 lg:ml-8">
                 <a
                   v-for="link in navLinks" :key="link.href" :href="link.href"
-                  class="relative rounded-full px-3 py-2 sm:px-4 sm:py-2.5 text-sm uppercase font-bold text-gray-200 transition-all duration-300 ease-in-out hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 whitespace-nowrap"
+                  class="relative rounded-full px-3 py-2 sm:px-4 sm:py-2.5 text-md font-montserrat uppercase font-bold text-gray-50 transition-all duration-300 ease-in-out hover:text-primary-300 dark:text-gray-300 dark:hover:text-primary-400 whitespace-nowrap"
                   @click.prevent="handleNavClick(link.href)"
                 >
                   <span class="relative z-10">{{ t(link.text) }}</span>
@@ -228,13 +228,13 @@ watch(isMenuOpen, (value) => {
                     class="absolute inset-0 -z-10 scale-x-0 rounded-full bg-primary-50 opacity-0 transition-all duration-300 ease-in-out group-hover:scale-x-100 group-hover:opacity-100 dark:bg-primary-900/20"
                   />
                 </a>
+                <CommonLocaleSwitch class="flex items-center" />
               </div>
-              <CommonLocaleSwitch class="flex items-center" />
             </div>
             <!-- Only show menu button on mobile -->
             <div ref="menuButtonContainerRef" class="md:hidden">
               <UButton
-                class="flex items-center transition-colors duration-200" color="gray" variant="ghost" size="sm"
+                class="flex items-center transition-colors duration-200 text-white" color="white" variant="ghost" size="lg"
                 :ui="{
                   rounded: 'rounded-lg',
                   padding: {
@@ -243,13 +243,14 @@ watch(isMenuOpen, (value) => {
                     md: 'p-3',
                   },
                   icon: {
-                    base: 'h-6 w-6',
-                    sm: 'h-6 w-6',
+                    base: 'h-8 w-8',
+                    sm: 'h-8 w-8',
                   },
                   color: {
-                    gray: {
-                      ghost: 'hover:bg-gray-100 dark:hover:bg-gray-800',
-                    },
+                   
+                    white : {
+                      ghost : 'hover:bg-gray-500/20 dark:hover:bg-gray-800'
+                    }
                   },
                 }" :icon="isMenuOpen ? 'lucide:x' : 'lucide:menu'" @click="isMenuOpen = !isMenuOpen"
               />
@@ -290,10 +291,12 @@ watch(isMenuOpen, (value) => {
                 <div
                   class="sticky top-0 z-10 flex items-center justify-between px-3 py-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm backdrop-saturate-150 border-b border-gray-100 dark:border-gray-800"
                 >
-                  <div class="flex items-center space-x-3 px-4" />
+                  <div class="flex items-center space-x-3 px-4" >
+                    <CommonLocaleSwitch class="flex items-center" :is-mobile="true"/>
+                  </div>
                   <UButton
                     class="flex items-center transform-gpu transition-all duration-300 ease-in-out hover:rotate-90 hover:scale-110 active:scale-95 mr-3"
-                    color="gray" variant="ghost" size="lg" :ui="{
+                    color="white" variant="ghost" size="lg" :ui="{
                       rounded: 'rounded-full',
                       padding: {
                         base: 'p-1',
@@ -308,49 +311,19 @@ watch(isMenuOpen, (value) => {
                 <!-- Menu links list -->
                 <div class="flex-1 overflow-y-auto">
                   <!-- Main navigation links -->
-                  <div class="px-3 py-4 space-y-1">
+                  <div class="px-3 py-4 space-y-1 flex flex-col items-center justify-center">
                     <a
-                      v-for="link in navLinks" :key="link.href" :href="link.href"
-                      class="group flex items-center px-4 py-3 rounded-xl text-base font-medium text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:bg-gray-800/50 transition-all duration-200"
+                      v-for="(link, idx) in navLinks" :key="link.href" :href="link.href"
+                      class=" flex flex-col items-center justify-center px-4 py-6 text-base font-medium w-full text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:bg-gray-800/50 transition-all duration-200"
+                       :class="{ 'border-b border-gray-300': idx < 3 }"
                       @click.prevent="handleNavClick(link.href)"
                     >
-                      <span class="relative">
+                      <span class="relative text-center text-lg font-bold last:border-b-0 uppercase">
                         {{ t(link.text) }}
-                        <span
-                          class="absolute inset-x-0 -bottom-0.5 h-0.5 bg-primary-500 scale-x-0 opacity-0 transition-all duration-300 group-hover:scale-x-100 group-hover:opacity-100"
-                        />
                       </span>
                     </a>
                   </div>
-
-                  <!-- Divider -->
-                  <div class="h-px bg-gray-100 dark:bg-gray-800 mx-3" />
-
-                  <!-- Function buttons area -->
-                  <div class="px-3 py-4">
-                    <!-- Language and theme switching -->
-                    <div class="flex items-center justify-center gap-4 px-4 py-3 text-gray-700 dark:text-gray-300">
-                      <div class="flex-1 flex justify-center">
-                        <CommonLocaleSwitch :always-show-name="true" />
-                      </div>
-                      <div class="h-6 w-px bg-gray-200 dark:bg-gray-700" />
-                      <div class="flex-1 flex justify-center">
-                        <CommonThemeSwitch />
-                      </div>
-                    </div>
                   </div>
-                </div>
-
-                <!-- Footer information -->
-                <div
-                  class="shrink-0 px-3 py-4 bg-gray-50/50 dark:bg-gray-900/50 border-t border-gray-100 dark:border-gray-800"
-                >
-                  <div class="flex items-center justify-between px-4">
-                    <div class="text-sm text-gray-500 dark:text-gray-400">
-                      © {{ new Date().getFullYear() }} {{ t('site.title') }}
-                    </div>
-                  </div>
-                </div>
               </nav>
             </div>
           </Transition>

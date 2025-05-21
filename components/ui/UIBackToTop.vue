@@ -64,18 +64,18 @@ onUnmounted(() => {
   >
     <button
       v-show="show" :aria-label="t('components.back_to_top.label')"
-      class="group fixed bottom-36 right-6 sm:right-8 lg:right-10 z-50 flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 text-gray-700 shadow-lg shadow-gray-500/5 ring-1 ring-gray-200/50 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:bg-white/20 hover:text-primary-500 hover:shadow-xl hover:shadow-primary-500/10 focus:outline-none focus:ring-2 focus:ring-primary-500/50 dark:bg-gray-800/20 dark:text-gray-300 dark:ring-gray-700/50 dark:hover:bg-gray-800/30 dark:hover:text-primary-400 sm:bottom-32 sm:h-14 sm:w-14"
+      class="group fixed bottom-36 right-6 sm:right-8 lg:right-10 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-gray-700 shadow-lg shadow-gray-500/5 ring-1 ring-gray-200/50 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:bg-white/20 hover:text-primary-500 hover:shadow-xl hover:shadow-primary-500/10 focus:outline-none focus:ring-2 focus:ring-primary-500/50 dark:bg-gray-800/20 dark:text-gray-300 dark:ring-gray-700/50 dark:hover:bg-gray-800/30 dark:hover:text-primary-400 sm:bottom-32 sm:h-14 sm:w-14"
       @click="scrollToTop" @keydown.enter="scrollToTop"
     >
       <div
-        class="absolute inset-0 rounded-xl bg-gradient-to-br from-primary-500/5 via-transparent to-primary-500/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        class="absolute inset-0 rounded-full bg-gradient-to-br from-primary-500/5 via-transparent to-primary-500/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
       />
       <UIcon
         name="lucide:chevron-up"
         class="relative h-6 w-6 transform transition-all duration-300 ease-out group-hover:scale-110 group-hover:animate-float sm:h-7 sm:w-7"
       />
       <div
-        class="absolute -inset-1 rounded-xl bg-gradient-to-br from-primary-500/20 to-primary-400/20 opacity-0 blur-sm transition-opacity duration-500 group-hover:opacity-100"
+        class="absolute -inset-1 rounded-full bg-gradient-to-br from-primary-500/20 to-primary-400/20 opacity-0 blur-sm transition-opacity duration-500 group-hover:opacity-100"
       />
       <span class="sr-only">{{ t('components.back_to_top.label') }}</span>
     </button>

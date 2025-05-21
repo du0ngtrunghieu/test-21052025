@@ -16,10 +16,18 @@ updatePageSeo("home")
 
 <template>
   <!-- Page main container -->
-  <div>
+  <div class="">
     <!-- Main content area -->
     <main>
       <BlockHero />
+
+      <BlockAbout />
+
+      <BlockGame />
+
+      <BlockPartner />
+
+      <BlockContact />
     </main>
   </div>
 </template>

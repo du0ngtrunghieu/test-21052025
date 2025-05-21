@@ -13,6 +13,7 @@ export interface LocaleItem extends BaseItem {
   value: Locale
   /** Display label */
   label: string
+  flag : string
 }
 
 /**
@@ -21,4 +22,5 @@ export interface LocaleItem extends BaseItem {
 export interface LocaleObject {
   code: Locale
   name?: string
+  flag?: string
 }

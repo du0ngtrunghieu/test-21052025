@@ -2,35 +2,21 @@ import type { SocialConfig } from "~/types/config/social"
 
 // Global social media platform configuration
 export const globalSocialConfig: SocialConfig = {
-  discord: {
-    name: "Discord",
-    url: "https://discord.gg/yajD5sJN",
-    icon: "simple-icons:discord",
-  },
-  github: {
-    name: "GitHub",
-    url: "https://github.com/waveany/",
-    icon: "simple-icons:github",
-  },
-  x: {
-    name: "X",
-    url: "https://x.com/wave_any",
-    icon: "simple-icons:x",
-  },
-  instagram: {
-    name: "Instagram",
-    url: "/",
-    icon: "simple-icons:instagram",
+  
+  twitter: {
+    name : "Twitter",
+    url : "#",
+    icon: "simple-icons:twitter",
   },
   facebook: {
     name: "Facebook",
     url: "/",
     icon: "simple-icons:facebook",
   },
-  youtube: {
-    name: "YouTube",
+  linkin: {
+    name: "Linkin",
     url: "/",
-    icon: "simple-icons:youtube",
+    icon: "simple-icons:linkin",
   },
 }
 
@@ -43,7 +29,7 @@ export const viSocialConfig: SocialConfig = {
   },
   github: {
     name: "GitHub",
-    url: "https://github.com/waveany/",
+    url: "#",
     icon: "lucide:github",
   },
 }

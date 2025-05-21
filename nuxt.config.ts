@@ -19,7 +19,7 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n", // Internationalization support
     "@nuxtjs/color-mode", // Color mode (dark/light)
     "@nuxt/icon", // Icon support
-    '@nuxtjs/tailwindcss'
+    "@nuxtjs/tailwindcss",
   ],
 
   // Icon configuration using iconify as provider
@@ -34,6 +34,15 @@ export default defineNuxtConfig({
       pathPrefix: false,
     },
   ],
+
+  css: ["~/assets/css/main.css"],
+
+  tailwindcss: {
+    cssPath: "~/assets/css/main.css",
+    configPath: "tailwind.config.js",
+    exposeConfig: false,
+    viewer: true,
+  },
 
   devtools: { enabled: false },
 

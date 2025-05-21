@@ -1,0 +1,14 @@
+{
+  "defaults": {
+    "title": "TEST 21/05/2025",
+    "description": "Duong Trung Hieu - Test Frontend Developer",
+    "keywords": "Nuxt JS, Nuxt  3"
+  },
+  "pages": {
+    "home": {
+      "title": "TEST 21/05/2025",
+      "description": "Duong Trung Hieu - Test Frontend Developer",
+      "keywords": "Nuxt JS, Nuxt  3"
+    }
+  }
+}
