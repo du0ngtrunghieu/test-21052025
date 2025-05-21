@@ -10,4 +10,5 @@ export default defineI18nLocale(async () => ({
   about: await import("./about.json").then(r => r.default),
   seo: await import("./seo.json").then(r => r.default),
   game : await import("./game.json").then(r => r.default),
+  partner : await import("./partner.json").then(r => r.default)
 }))

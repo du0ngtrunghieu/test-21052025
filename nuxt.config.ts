@@ -20,6 +20,7 @@ export default defineNuxtConfig({
     "@nuxtjs/color-mode", // Color mode (dark/light)
     "@nuxt/icon", // Icon support
     "@nuxtjs/tailwindcss",
+    'vue3-carousel-nuxt'
   ],
 
   // Icon configuration using iconify as provider
@@ -134,4 +135,7 @@ export default defineNuxtConfig({
   i18n: i18nConfig,
 
   compatibilityDate: "2025-02-23",
+  carousel: {
+    prefix: 'C'
+  }
 })
