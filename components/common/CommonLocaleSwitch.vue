@@ -47,6 +47,7 @@ const localeItems = computed<LocaleItem[]>(() =>
   (locales.value as LocaleObject[]).map(l => ({
     label: l.name || l.code, // Display name, use language code if name not available
     value: l.code, // Language code as value
+    flag: l.flag,
   })),
 )
 
@@ -100,7 +101,7 @@ async function handleLocaleSwitch(item: LocaleItem) {
     <!-- Language switch button with tooltip -->
     <UTooltip :text="t('components.locale_switch.tooltip')">
       <UButton
-        color="gray" variant="ghost" :ui="{
+        color="white" variant="ghost" :ui="{
           padding: {
             base: 'p-2',
             sm: 'p-2.5',
@@ -115,31 +116,27 @@ async function handleLocaleSwitch(item: LocaleItem) {
         <!-- Button content -->
         <div class="flex items-center space-x-1.5">
           <!-- Globe icon -->
-          <UIcon name="lucide:globe" class="locale-icon" />
+          <!-- <UIcon name="lucide:globe" class="locale-icon" /> -->
           <!-- Current language name -->
-          <span
-            class="text-sm font-medium" :class="[
-              props.alwaysShowName ? 'inline' : 'hidden sm:inline',
-            ]"
-          >{{ currentLocale.name }}</span>
+
+          <img
+              :src="currentLocale.flag"
+              :alt="currentLocale.name"
+              class="w-6 h-6 object-cover rounded-sm"
+            />
           <!-- Dropdown arrow icon -->
           <UIcon
             name="lucide:chevron-down"
-            class="w-4 h-4 transition-transform duration-200"
+            class="w-4 h-4 transition-transform duration-200 bg-white"
             :class="{ 'rotate-180': isLocaleMenuOpen }"
           />
         </div>
       </UButton>
     </UTooltip>
 
-    <!--
-      Language selection dropdown menu
-      Uses absolute positioning and transform for center alignment
-      Adds frosted glass effect and shadow for visual hierarchy
-     -->
     <div
       v-show="isLocaleMenuOpen"
-      class="absolute left-1/2 -translate-x-1/2 top-[60px] w-36 rounded-lg bg-white py-1 shadow-lg ring-1 ring-gray-200/50 dark:bg-gray-800/95 dark:ring-gray-700/50 backdrop-blur-xl z-50"
+      class="absolute left-1/2 -translate-x-1/2 top-[60px] w-40 rounded-lg bg-white py-1 shadow-lg ring-1 ring-gray-200/50 dark:bg-gray-800/95 dark:ring-gray-700/50 backdrop-blur-xl z-50"
       role="menu" aria-orientation="vertical"
     >
       <!-- Language option list -->
@@ -149,12 +146,10 @@ async function handleLocaleSwitch(item: LocaleItem) {
         :aria-current="item.value === locale ? 'true' : undefined" role="menuitem" @click="handleLocaleSwitch(item)"
       >
         <div class="flex items-center w-full">
+          <UIcon v-if="item.value === locale" name="lucide:check" class="theme-icon" />
           <!-- Current selected language checkmark -->
-          <div class="w-6 flex items-center justify-center">
-            <UIcon
-              v-if="item.value === locale" name="lucide:check" class="h-4 w-4"
-              :aria-label="t('components.aria.current_language', { name: item.label })"
-            />
+          <div class="w-6 flex items-center justify-center px-2">
+            <img :src="item.flag" :alt="item.label" class="w-full h-full object-cover">
           </div>
           <!-- Language name -->
           <span>{{ item.label }}</span>
@@ -180,5 +175,14 @@ async function handleLocaleSwitch(item: LocaleItem) {
 .locale-menu-item {
   @apply flex w-full items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200;
   /* Dark theme adaptation */
+}
+
+.theme-icon {
+  @apply w-5 h-5 sm:w-6 sm:h-6;
+  transform: none;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

@@ -19,6 +19,7 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n", // Internationalization support
     "@nuxtjs/color-mode", // Color mode (dark/light)
     "@nuxt/icon", // Icon support
+    '@nuxtjs/tailwindcss'
   ],
 
   // Icon configuration using iconify as provider

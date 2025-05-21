@@ -185,17 +185,11 @@ watch(isMenuOpen, (value) => {
 </script>
 
 <template>
-  <!--
-    Header navigation container
-    sticky: Fixed at top
-    backdrop-blur-sm: Frosted glass effect
-    backdrop-saturate-150: Increase saturation
-   -->
   <header
-    class="sticky top-0 z-40 w-full border-b border-gray-200 bg-white/80 backdrop-blur-sm backdrop-saturate-150 transition-colors duration-200 ease-in-out dark:border-gray-800 dark:bg-gray-900/80"
+    class="fixed left-0 top-0 z-40 w-full transition-colors duration-200 ease-in-out"
   >
     <!-- Navigation bar -->
-    <nav class="container mx-auto px-2 sm:px-4 lg:px-8">
+    <nav class="mx-auto px-2 sm:px-4 lg:px-16">
       <!-- Actual content -->
       <template v-if="!isLoading">
         <!-- Navigation bar content -->
@@ -205,35 +199,15 @@ watch(isMenuOpen, (value) => {
             <!-- Logo link -->
             <a
               href="/"
-              class="group flex items-center space-x-2 sm:space-x-3 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400"
+              class="group flex items-center py-2 space-x-2 sm:space-x-3 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400"
               @click.prevent="handleLogoClick"
             >
               <!-- Logo image -->
               <img
                 src="/logo.svg" alt="Nuxt Starter Logo"
-                class="h-7 w-7 sm:h-8 sm:w-8 transition-transform duration-200 ease-in-out group-hover:scale-110"
+                class="h-15 w-20 sm:h-15 sm:w-20 transition-transform duration-200 ease-in-out group-hover:scale-110"
               >
-              <!-- Website title -->
-              <span
-                class="text-base sm:text-lg font-bold text-gray-900 transition-colors duration-200 ease-in-out group-hover:text-primary-600 dark:text-white dark:group-hover:text-primary-400 truncate"
-              >
-                {{ t('site.title') }}
-              </span>
             </a>
-
-            <!-- Desktop navigation menu -->
-            <div class="hidden md:flex md:space-x-1 lg:space-x-3 md:ml-4 lg:ml-8">
-              <a
-                v-for="link in navLinks" :key="link.href" :href="link.href"
-                class="relative rounded-full px-3 py-2 sm:px-4 sm:py-2.5 text-sm font-medium text-gray-600 transition-all duration-300 ease-in-out hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 whitespace-nowrap"
-                @click.prevent="handleNavClick(link.href)"
-              >
-                <span class="relative z-10">{{ t(link.text) }}</span>
-                <span
-                  class="absolute inset-0 -z-10 scale-x-0 rounded-full bg-primary-50 opacity-0 transition-all duration-300 ease-in-out group-hover:scale-x-100 group-hover:opacity-100 dark:bg-primary-900/20"
-                />
-              </a>
-            </div>
           </div>
 
           <!-- Right functionality area -->
@@ -242,8 +216,20 @@ watch(isMenuOpen, (value) => {
           >
             <!-- Show language and theme switch on desktop -->
             <div class="hidden md:flex items-center space-x-2">
+              <!-- Desktop navigation menu -->
+              <div class="hidden md:flex md:space-x-1 lg:space-x-3 md:ml-4 lg:ml-8">
+                <a
+                  v-for="link in navLinks" :key="link.href" :href="link.href"
+                  class="relative rounded-full px-3 py-2 sm:px-4 sm:py-2.5 text-sm uppercase font-bold text-gray-200 transition-all duration-300 ease-in-out hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 whitespace-nowrap"
+                  @click.prevent="handleNavClick(link.href)"
+                >
+                  <span class="relative z-10">{{ t(link.text) }}</span>
+                  <span
+                    class="absolute inset-0 -z-10 scale-x-0 rounded-full bg-primary-50 opacity-0 transition-all duration-300 ease-in-out group-hover:scale-x-100 group-hover:opacity-100 dark:bg-primary-900/20"
+                  />
+                </a>
+              </div>
               <CommonLocaleSwitch class="flex items-center" />
-              <CommonThemeSwitch class="flex items-center" />
             </div>
             <!-- Only show menu button on mobile -->
             <div ref="menuButtonContainerRef" class="md:hidden">
@@ -296,7 +282,7 @@ watch(isMenuOpen, (value) => {
             <!-- Sidebar menu -->
             <div
               v-if="isMenuOpen" ref="mobileMenuRef"
-              class="fixed right-0 top-0 bottom-0 z-50 w-[280px] max-w-[85vw] bg-white dark:bg-gray-900 shadow-xl dark:shadow-primary-900/20 flex flex-col"
+              class="fixed right-0 top-0 bottom-0 z-50 w-full bg-white dark:bg-gray-900 shadow-xl dark:shadow-primary-900/20 flex flex-col"
             >
               <!-- Menu content -->
               <nav class="flex-1 flex flex-col h-full">
@@ -304,20 +290,17 @@ watch(isMenuOpen, (value) => {
                 <div
                   class="sticky top-0 z-10 flex items-center justify-between px-3 py-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm backdrop-saturate-150 border-b border-gray-100 dark:border-gray-800"
                 >
-                  <div class="flex items-center space-x-3 px-4">
-                    <img src="/logo.svg" alt="Logo" class="h-8 w-auto">
-                    <span class="text-lg font-semibold text-gray-900 dark:text-white">{{ t('site.title') }}</span>
-                  </div>
+                  <div class="flex items-center space-x-3 px-4" />
                   <UButton
                     class="flex items-center transform-gpu transition-all duration-300 ease-in-out hover:rotate-90 hover:scale-110 active:scale-95 mr-3"
-                    color="gray" variant="ghost" size="sm" :ui="{
+                    color="gray" variant="ghost" size="lg" :ui="{
                       rounded: 'rounded-full',
                       padding: {
-                        base: 'p-2',
-                        sm: 'p-2',
-                        md: 'p-2',
+                        base: 'p-1',
+                        sm: 'p-1',
+                        md: 'p-1',
                       },
-                      icon: { base: 'h-5 w-5' },
+                      icon: { base: 'h-8 w-8' },
                     }" icon="lucide:x" :aria-label="t('components.aria.close_menu')" @click="isMenuOpen = false"
                   />
                 </div>

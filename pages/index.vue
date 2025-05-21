@@ -18,7 +18,9 @@ updatePageSeo("home")
   <!-- Page main container -->
   <div>
     <!-- Main content area -->
-    <main />
+    <main>
+      <BlockHero />
+    </main>
   </div>
 </template>
 

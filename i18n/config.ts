@@ -8,6 +8,7 @@ export const LOCALES: LocaleObject[] = [
     name: "English",
     dir: "ltr",
     file: "en/index.ts",
+    flag: "/images/flag/flag_us.png",
   },
   {
     code: "vi",
@@ -15,6 +16,7 @@ export const LOCALES: LocaleObject[] = [
     name: "Vietnamese",
     dir: "ltr",
     file: "vi/index.ts",
+    flag: "/images/flag/flag_vn.png",
   },
 ]
 
