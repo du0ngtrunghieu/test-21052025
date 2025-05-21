@@ -1,57 +1,67 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue"
+import { ref, onMounted, onUnmounted } from "vue";
+import { useI18n } from "#imports";
 
-import { useI18n } from "#imports"
-
-const { t } = useI18n()
+const { t } = useI18n();
 
 // Reactive variables for countdown
-const days = ref<number>(0)
-const hours = ref<number>(0)
-const minutes = ref<number>(0)
-const seconds = ref<number>(0)
+const days = ref<number>(0);
+const hours = ref<number>(0);
+const minutes = ref<number>(0);
+const seconds = ref<number>(0);
+
 // Define the target date
-const now: Date = new Date()
-const targetDate: Date = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000)
+const now = new Date();
+const targetDate = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
 
-// Define timer type
-let timer: NodeJS.Timeout | undefined
+// Use requestAnimationFrame for smoother updates
+let rafId: number | undefined;
+let lastUpdate = 0;
 
-// Update countdown function
-function updateCountdown(): void {
-  const now: Date = new Date()
-  const diff: number = targetDate.getTime() - now.getTime()
+function updateCountdown(timestamp: number): void {
+  if (timestamp - lastUpdate < 1000) {
+    rafId = requestAnimationFrame(updateCountdown);
+    return;
+  }
+  lastUpdate = timestamp;
+
+  const now = new Date();
+  const diff = targetDate.getTime() - now.getTime();
 
   if (diff > 0) {
-    days.value = Math.floor(diff / (1000 * 60 * 60 * 24))
-    hours.value = Math.floor((diff / (1000 * 60 * 60)) % 24)
-    minutes.value = Math.floor((diff / (1000 * 60)) % 60)
-    seconds.value = Math.floor((diff / 1000) % 60)
-  }
-  else {
-    days.value = 0
-    hours.value = 0
-    minutes.value = 0
-    seconds.value = 0
-    if (timer) {
-      clearInterval(timer)
-      timer = undefined
+    const newDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const newHours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const newMinutes = Math.floor((diff / (1000 * 60)) % 60);
+    const newSeconds = Math.floor((diff / 1000) % 60);
+
+    if (days.value !== newDays) days.value = newDays;
+    if (hours.value !== newHours) hours.value = newHours;
+    if (minutes.value !== newMinutes) minutes.value = newMinutes;
+    if (seconds.value !== newSeconds) seconds.value = newSeconds;
+
+    rafId = requestAnimationFrame(updateCountdown);
+  } else {
+    days.value = 0;
+    hours.value = 0;
+    minutes.value = 0;
+    seconds.value = 0;
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = undefined;
     }
   }
 }
 
-// // Lifecycle hooks
-// onMounted(() => {
-//   updateCountdown()
-//   timer = setInterval(updateCountdown, 1000)
-// })
+onMounted(() => {
+  updateCountdown(performance.now());
+});
 
 onUnmounted(() => {
-  if (timer) {
-    clearInterval(timer)
-    timer = undefined
+  if (rafId) {
+    cancelAnimationFrame(rafId);
+    rafId = undefined;
   }
-})
+});
 </script>
 
 <template>
@@ -61,6 +71,7 @@ onUnmounted(() => {
     <img
       src="/images/hero/wizard.png" alt="Wizard"
       class="absolute left-[55%] translate-x-[-50%] bottom-[-180px] w-[220px] z-40 md:left-0 md:translate-x-0 md:bottom-0 md:w-[35%] md:z-10"
+      v-once
     >
 
     <div class="flex flex-col items-center z-20 pt-40 pb-12 md:pt-24 bg-gradient-radial from-[#210544] via-[rgba(23,5,68,0.71)] to-[rgba(23,5,68,0)] bg-[length:27.72%_27.79%] bg-[center_68.15%]  backdrop-blur-[8px] max-lg:gap-10 ">
@@ -89,7 +100,7 @@ onUnmounted(() => {
           </div>
           <span class="md:text-6xl mx-2">:</span>
           <div class="flex flex-col items-center">
-            <span class="font-playfair md:text-6xl font-extrabold">{{ seconds }}</span>
+            <span class="font-playfair md:text-6xl sm:text-4xl font-extrabold">{{ seconds }}</span>
             <span class="text-xs md:text-base font-bold font-sans mt-2">{{ t('hero.second') }}</span>
           </div>
         </div>

@@ -40,7 +40,9 @@ const { t } = useI18n()
             class="flex items-start space-x-4"
           >
             <div class="flex-shrink-0">
-              <div class="bg-[#E3FCFF] p-3 rounded-full" />
+              <div class="bg-[#E3FCFF] rounded-full" >
+                <img src="/images/about/time.png" class="w-16 h-16"/>
+              </div>
             </div>
             <div>
               <h3 class="text-2xl font-bold text-gray-900">
@@ -55,7 +57,9 @@ const { t } = useI18n()
             class="flex items-start space-x-4"
           >
             <div class="flex-shrink-0">
-              <div class="bg-[#E3FCFF] p-3 rounded-full" />
+              <div class="bg-[#E3FCFF] rounded-full" >
+                <img src="/images/about/design.png" class="w-16 h-16"/>
+              </div>
             </div>
             <div>
               <h3 class="text-2xl font-bold text-gray-900">
@@ -70,7 +74,9 @@ const { t } = useI18n()
             class="flex items-start space-x-4"
           >
             <div class="flex-shrink-0">
-              <div class="bg-[#E3FCFF] p-3 rounded-full" />
+              <div class="bg-[#E3FCFF] rounded-full" >
+                <img src="/images/about/team.png" class="w-16 h-16"/>
+              </div>
             </div>
             <div>
               <h3 class="text-2xl font-bold text-gray-900">
